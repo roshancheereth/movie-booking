@@ -1,0 +1,17 @@
+spring:
+  datasource:
+    url: jdbc:mysql://localhost:3306/searchdb?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC
+    username: search_user
+    password: password_test
+    driver-class-name: com.mysql.cj.jdbc.Driver
+
+  jpa:
+    hibernate:
+      ddl-auto: validate          # keep schema under version-control; no silent creation
+    show-sql: false
+    properties:
+      hibernate.dialect: org.hibernate.dialect.MySQL8Dialect
+      hibernate.format_sql: true
+
+server:
+  port: 8081
