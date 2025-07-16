@@ -1,6 +1,6 @@
 package org.publicissapient.moviesearch.service;
 
-import org.publicissapient.moviesearch.domain.Show;
+import org.publicissapient.moviesearch.domain.Show_;
 import org.publicissapient.moviesearch.dto.SearchResultDto;
 import org.publicissapient.moviesearch.repository.ShowRepository;
 import org.publicissapient.moviesearch.repository.specs.ShowSpecifications;
@@ -18,7 +18,7 @@ public class SearchService {
 
     public List<SearchResultDto> search(SearchCriteria c) {
 
-        Specification<Show> spec = Specification.where(null);
+        Specification<Show_> spec = Specification.where(null);
 
         if (c.city() != null)      spec = spec.and(ShowSpecifications.cityIs(c.city()));
         if (c.title() != null)     spec = spec.and(ShowSpecifications.titleLike(c.title()));

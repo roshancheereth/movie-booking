@@ -1,7 +1,7 @@
 package org.publicissapient.moviesearch.api;
 
-import com.publicissapient.moviesearch.dto.SearchResultDto;
-import com.publicissapient.moviesearch.service.*;
+import org.publicissapient.moviesearch.dto.SearchResultDto;
+import org.publicissapient.moviesearch.service.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.bind.annotation.*;

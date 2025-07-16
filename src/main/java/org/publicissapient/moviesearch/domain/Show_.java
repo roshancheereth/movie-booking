@@ -1,7 +1,10 @@
 package org.publicissapient.moviesearch.domain;
 
 import jakarta.persistence.*;
-import lombok.*;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
 import java.time.LocalDate;
 import java.time.LocalTime;
 
@@ -11,7 +14,7 @@ import java.time.LocalTime;
         @Index(columnList = "language"),
         @Index(columnList = "showDate, startTime")
 })
-public class Show {
+public class Show_ {
     @Id @GeneratedValue private Long id;
 
     private String theatre;
