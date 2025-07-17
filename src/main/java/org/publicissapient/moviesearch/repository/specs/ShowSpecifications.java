@@ -22,7 +22,7 @@ public final class ShowSpecifications {
     }
 
     public static Specification<Show_> startAfter(LocalDateTime t) {
-        return (root, q, cb) -> cb.greaterThanOrEqualTo(root.get("startTime"), t);
+        return (root, q, cb) -> cb.greaterThanOrEqualTo(root.get("showDateTime"), t);
     }
 
     private ShowSpecifications() {}
