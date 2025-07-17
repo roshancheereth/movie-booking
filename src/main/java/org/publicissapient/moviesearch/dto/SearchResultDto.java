@@ -1,7 +1,9 @@
 package org.publicissapient.moviesearch.dto;
 
 import lombok.*;
-import java.time.*;
+
+import java.time.LocalDate;
+import java.time.LocalTime;
 
 @Getter @Setter @AllArgsConstructor
 public class SearchResultDto {
@@ -10,5 +12,6 @@ public class SearchResultDto {
     private String language;
     private String theatre;
     private String city;
-    private LocalDateTime showDateTime;
+    private LocalDate showDate;
+    private LocalTime showTime;
 }

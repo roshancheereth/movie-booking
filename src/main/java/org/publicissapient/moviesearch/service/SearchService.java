@@ -23,7 +23,7 @@ public class SearchService {
         if (c.city() != null)      spec = spec.and(ShowSpecifications.cityIs(c.city()));
         if (c.title() != null)     spec = spec.and(ShowSpecifications.titleLike(c.title()));
         if (c.language() != null)  spec = spec.and(ShowSpecifications.languageIs(c.language()));
-        if (c.after() != null)     spec = spec.and(ShowSpecifications.startAfter(c.after()));
+        if (c.showForDate() != null)     spec = spec.and(ShowSpecifications.showForDate(c.showForDate()));
 
         return repo.findAll(spec).stream()
                 .map(s -> new SearchResultDto(
@@ -32,7 +32,8 @@ public class SearchService {
                         s.getMovie().getLanguage(),
                         s.getTheatre(),
                         s.getCity(),
-                        s.getShowDateTime()))
+                        s.getShowDate(),
+                        s.getShowTime()))
                 .toList();
     }
 }

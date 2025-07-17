@@ -2,11 +2,11 @@ package org.publicissapient.moviesearch.service;
 
 import lombok.Builder;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 
 
 @Builder
 public record SearchCriteria(String city,
                              String title,
                              String language,
-                             LocalDateTime after) {}
+                             LocalDate showForDate) {}
