@@ -6,8 +6,10 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.bind.annotation.*;
 
-import java.time.LocalTime;
+import java.time.LocalDateTime;
 import java.util.List;
+
+import static org.springframework.format.annotation.DateTimeFormat.ISO.DATE_TIME;
 
 @RestController
 @RequestMapping("/api/v1/search")
@@ -21,8 +23,7 @@ public class SearchController {
             @RequestParam(required = false) String city,
             @RequestParam(required = false) String title,
             @RequestParam(required = false) String language,
-            @RequestParam(required = false)
-            @DateTimeFormat(iso = DateTimeFormat.ISO.TIME) LocalTime after) {
+            @RequestParam(required = false) @DateTimeFormat(iso = DATE_TIME) LocalDateTime after) {
 
         SearchCriteria criteria = SearchCriteria.builder()
                 .city(city)

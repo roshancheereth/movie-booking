@@ -10,6 +10,5 @@ public class SearchResultDto {
     private String language;
     private String theatre;
     private String city;
-    private LocalDate showDate;
-    private LocalTime startTime;
+    private LocalDateTime showDateTime;
 }

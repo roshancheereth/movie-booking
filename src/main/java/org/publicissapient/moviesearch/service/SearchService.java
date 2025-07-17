@@ -32,8 +32,7 @@ public class SearchService {
                         s.getMovie().getLanguage(),
                         s.getTheatre(),
                         s.getCity(),
-                        s.getShowDate(),
-                        s.getStartTime()))
+                        s.getShowDateTime()))
                 .toList();
     }
 }

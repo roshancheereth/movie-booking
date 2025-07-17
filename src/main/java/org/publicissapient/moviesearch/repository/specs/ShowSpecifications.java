@@ -1,10 +1,9 @@
 package org.publicissapient.moviesearch.repository.specs;
 
 import org.publicissapient.moviesearch.domain.Show_;
-import jakarta.persistence.criteria.*;
 import org.springframework.data.jpa.domain.Specification;
 
-import java.time.LocalTime;
+import java.time.LocalDateTime;
 
 public final class ShowSpecifications {
 
@@ -22,7 +21,7 @@ public final class ShowSpecifications {
                 cb.equal(cb.lower(root.join("movie").get("language")), lang.toLowerCase());
     }
 
-    public static Specification<Show_> startAfter(LocalTime t) {
+    public static Specification<Show_> startAfter(LocalDateTime t) {
         return (root, q, cb) -> cb.greaterThanOrEqualTo(root.get("startTime"), t);
     }
 
