@@ -18,7 +18,7 @@ public class CustomErrorController implements ErrorController {
     }
 
     @RequestMapping(value = PATH)
-    public String error(HttpServletRequest httpServletRequest) {
+    public String error() {
 
         return "Error handling = HTTP Error " + httpServletResponse.getStatus();
     }
