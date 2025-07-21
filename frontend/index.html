@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Movie Booking App</title>
+  <!-- React and other libraries from CDN -->
+  <script crossorigin src="https://unpkg.com/react@18/umd/react.development.js"></script>
+  <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+  <script crossorigin src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  <script crossorigin src="https://unpkg.com/dompurify@3.0.4/dist/purify.min.js"></script>
+</head>
+<body>
+  <div id="root"></div>
+  <script type="text/babel">
+    const { useState } = React;
+
+    function App() {
+        const [form, setForm] = useState({ city: '', language: '', theater: '', date: '' });
+        const [results, setResults] = useState([]);
+        const [error, setError] = useState('');
+      const handleChange = (e) => {
+        const { name, value } = e.target;
+        setForm((f) => ({ ...f, [name]: value }));
+      };
+
+        const handleSubmit = async (e) => {
+          e.preventDefault();
+
+          const params = new URLSearchParams();
+          if (form.city) params.append('city', form.city);
+          if (form.language) params.append('language', form.language);
+          if (form.date) {
+            try {
+              const iso = new Date(form.date).toISOString();
+              params.append('after', iso);
+            } catch {}
+          }
+
+          try {
+            const resp = await fetch('/api/v1/search?' + params.toString());
+            if (!resp.ok) throw new Error('Request failed');
+            const data = await resp.json();
+            setResults(Array.isArray(data) ? data : []);
+            setError('');
+          } catch (err) {
+            setError(err.toString());
+            setResults([]);
+          }
+        };
+
+      // sanitize data before displaying/using it
+      const sanitized = {
+        city: DOMPurify.sanitize(form.city),
+        language: DOMPurify.sanitize(form.language),
+        theater: DOMPurify.sanitize(form.theater),
+        date: DOMPurify.sanitize(form.date),
+      };
+
+      return (
+        <div>
+          <h1>Book a Movie</h1>
+          <form onSubmit={handleSubmit}>
+            <div>
+              <label>City:
+                <input name="city" value={form.city} onChange={handleChange} />
+              </label>
+            </div>
+            <div>
+              <label>Language:
+                <input name="language" value={form.language} onChange={handleChange} />
+              </label>
+            </div>
+            <div>
+              <label>Theater:
+                <input name="theater" value={form.theater} onChange={handleChange} />
+              </label>
+            </div>
+            <div>
+              <label>Date:
+                <input type="date" name="date" value={form.date} onChange={handleChange} />
+              </label>
+            </div>
+            <button type="submit">Search</button>
+          </form>
+            <h2>Selected Values</h2>
+            <ul>
+              <li>City: {sanitized.city}</li>
+              <li>Language: {sanitized.language}</li>
+              <li>Theater: {sanitized.theater}</li>
+              <li>Date: {sanitized.date}</li>
+            </ul>
+
+            {error && <p style={{ color: 'red' }}>{DOMPurify.sanitize(error)}</p>}
+            {results.length > 0 && (
+              <div>
+                <h2>Results</h2>
+                <ul>
+                  {results.map(r => (
+                    <li key={r.showId}>
+                      {DOMPurify.sanitize(r.movieTitle)} -
+                      {DOMPurify.sanitize(r.language)} -
+                      {DOMPurify.sanitize(r.theatre)} -
+                      {DOMPurify.sanitize(r.city)} -
+                      {DOMPurify.sanitize(r.showDateTime)}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            )}
+          </div>
+        );
+      }
+
+    const root = ReactDOM.createRoot(document.getElementById('root'));
+    root.render(<App />);
+  </script>
+</body>
+</html>
