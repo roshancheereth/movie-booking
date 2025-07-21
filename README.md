@@ -37,6 +37,12 @@ Use the Gradle wrapper to start the service:
 
 The service will start on port `8081`.
 
+### Frontend UI
+
+With the backend running, open `http://localhost:8081/index.html` in your
+browser to load the simple React interface. The page is served directly from the
+`src/main/resources/static` directory.
+
 ### API Usage
 
 The search endpoint is available at:
