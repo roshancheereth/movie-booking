@@ -12,3 +12,4 @@ npm run dev
 ```
 
 The UI expects the backend API to be available at `/api/v1/search`.
+It also fetches the list of cities from `/api/v1/cities` when the search form loads.

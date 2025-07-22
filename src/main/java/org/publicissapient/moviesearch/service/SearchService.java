@@ -36,4 +36,13 @@ public class SearchService {
                         s.getShowTime()))
                 .toList();
     }
+
+    /**
+     * Fetch distinct list of cities available in the database.
+     *
+     * @return list of city names
+     */
+    public List<String> listCities() {
+        return repo.findDistinctCities();
+    }
 }

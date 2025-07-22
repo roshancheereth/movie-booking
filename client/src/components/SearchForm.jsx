@@ -1,19 +1,38 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
 import MenuItem from '@mui/material/MenuItem';
 import Button from '@mui/material/Button';
 import Grid from '@mui/material/Grid';
 
-const cities = ['Bangalore', 'Mumbai', 'Delhi', 'Chennai'];
 const languages = ['English', 'Hindi', 'Tamil'];
 
 const escapeInput = (value) => value.replace(/[<>]/g, '');
 
 export default function SearchForm({ onSearch, loading }) {
   const [city, setCity] = useState('');
+  const [cities, setCities] = useState([]);
+  const [loadingCities, setLoadingCities] = useState(true);
+  const [cityError, setCityError] = useState('');
   const [language, setLanguage] = useState('');
   const [date, setDate] = useState('');
+
+  useEffect(() => {
+    async function fetchCities() {
+      try {
+        const res = await fetch('/api/v1/cities');
+        if (!res.ok) throw new Error('Network response was not ok');
+        const data = await res.json();
+        setCities(Array.isArray(data) ? data : []);
+      } catch (err) {
+        console.error(err);
+        setCityError('Unable to load cities');
+      } finally {
+        setLoadingCities(false);
+      }
+    }
+    fetchCities();
+  }, []);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -36,12 +55,20 @@ export default function SearchForm({ onSearch, loading }) {
             onChange={(e) => setCity(e.target.value)}
             required
             aria-label="Select city"
+            disabled={loadingCities || !!cityError}
           >
-            {cities.map((c) => (
-              <MenuItem key={c} value={c}>
-                {c}
-              </MenuItem>
-            ))}
+            {loadingCities && (
+              <MenuItem disabled>Loading...</MenuItem>
+            )}
+            {cityError && !loadingCities && (
+              <MenuItem disabled>Error loading cities</MenuItem>
+            )}
+            {!loadingCities && !cityError &&
+              cities.map((c) => (
+                <MenuItem key={c} value={c}>
+                  {c}
+                </MenuItem>
+              ))}
           </TextField>
         </Grid>
         <Grid item xs={12} sm={4}>

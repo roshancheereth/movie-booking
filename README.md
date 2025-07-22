@@ -58,6 +58,14 @@ Example request:
 GET http://localhost:8081/api/v1/search?city=Bangalore&title=Time
 ```
 
+To populate the city dropdown on the UI a helper endpoint is provided:
+
+```
+GET /api/v1/cities
+```
+
+It returns a JSON array of the distinct city names available in the database.
+
 ### Running Tests
 
 ```
