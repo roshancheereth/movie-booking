@@ -76,3 +76,17 @@ GET http://localhost:8081/api/v1/search?city=Bangalore&title=Time
 
 This repository does not contain an explicit license.
 
+
+## Frontend UI
+
+A lightweight React.js client is available in the `client/` folder. It uses Vite and Material UI to provide a responsive interface for searching movies.
+
+### Running the UI
+
+```bash
+cd client
+npm install
+npm run dev
+```
+
+The development server proxies API calls to the Spring Boot backend running on port `8081`.
